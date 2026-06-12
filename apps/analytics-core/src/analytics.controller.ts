@@ -6,7 +6,7 @@ type CaptureClickMessage = {
   clickTime: number
 }
 
-@Controller('analytics')
+@Controller()
 export class AnalyticsController {
   // constructor(private readonly appService: AppProcessor) {}
 
