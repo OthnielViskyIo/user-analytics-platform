@@ -1,28 +1,8 @@
 import { Module } from '@nestjs/common'
 
 import { AnalyticsController } from './analytics.controller'
-import { AnalyticsService } from './analytics.service'
-import { ClientsModule, Transport } from '@nestjs/microservices'
 
 @Module({
-  imports: [
-    ClientsModule.register([
-      {
-        name: 'ANALYTICS_SERVICE',
-        transport: Transport.KAFKA,
-        options: {
-          client: {
-            brokers: ['localhost:9092'],
-          },
-          consumer: {
-            groupId: 'my-producer-group', // producer's groupId // (??)
-          },
-        },
-      },
-    ]),
-  ],
   controllers: [AnalyticsController],
-  providers: [AnalyticsService],
-  exports: [AnalyticsService],
 })
 export class AnalyticsModule {}
