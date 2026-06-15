@@ -1,5 +1,5 @@
 {
-  "name": "analytics-api",
+  "name": "@repo/analytics-api",
   "version": "1.0.0",
   "description": "",
   "main": "dist/src/main",
@@ -15,7 +15,10 @@
   "dependencies": {
     "@nestjs/common": "^11.1.26",
     "@nestjs/core": "^11.1.26",
+    "@nestjs/microservices": "^11.1.26",
     "@nestjs/platform-express": "^11.1.26",
+    "@nestjs/swagger": "^11.4.4",
+    "@repo/analytics-core": "workspace:*",
     "reflect-metadata": "0.2"
   },
   "devDependencies": {

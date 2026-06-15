@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common'
-
-import { AnalyticsController } from './analytics.controller'
-import { AnalyticsService } from './analytics.service'
 import { ClientsModule, Transport } from '@nestjs/microservices'
+
+import { AnalyticsHttpController } from './analyticsHttp.controller'
 
 @Module({
   imports: [
@@ -14,15 +13,10 @@ import { ClientsModule, Transport } from '@nestjs/microservices'
           client: {
             brokers: ['localhost:9092'],
           },
-          consumer: {
-            groupId: 'my-producer-group', // producer's groupId // (??)
-          },
         },
       },
     ]),
   ],
-  controllers: [AnalyticsController],
-  providers: [AnalyticsService],
-  exports: [AnalyticsService],
+  controllers: [AnalyticsHttpController],
 })
-export class AnalyticsModule {}
+export class AnalyticsHttpModule {}
