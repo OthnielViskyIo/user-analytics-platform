@@ -26,10 +26,10 @@ export default function RootLayout({
   children,
 }: PropsWithChildren) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased overflow-hidden`}>
+      <body className="h-full flex flex-col overflow-hidden">
         <Header />
-        <main className="flex-1">
+        <main className="flex-1 overflow-y-auto">
           <Container>{children}</Container>
         </main>
       </body>
