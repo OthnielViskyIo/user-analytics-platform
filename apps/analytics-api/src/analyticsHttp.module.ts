@@ -1,5 +1,6 @@
-import { Module } from '@nestjs/common'
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
 import { ClientsModule, Transport } from '@nestjs/microservices'
+import { AnalyticsMetaMiddleware } from './analyticsMeta.middleware'
 
 import { AnalyticsHttpController } from './analyticsHttp.controller'
 
@@ -19,4 +20,8 @@ import { AnalyticsHttpController } from './analyticsHttp.controller'
   ],
   controllers: [AnalyticsHttpController],
 })
-export class AnalyticsHttpModule {}
+export class AnalyticsHttpModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AnalyticsMetaMiddleware).forRoutes('*')
+  }
+}

@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common'
+import { MongooseModule } from '@nestjs/mongoose'
 
-import { AnalyticsController } from './analytics.controller'
+import { CaptureEventModule } from './capture-event/captureEvent.module'
 
 @Module({
-  controllers: [AnalyticsController],
+  imports: [MongooseModule.forRoot('mongodb://localhost/user-analytics-db'), CaptureEventModule],
 })
 export class AnalyticsModule {}
