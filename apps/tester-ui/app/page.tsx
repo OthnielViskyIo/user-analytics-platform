@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { Card } from '@/components/Card'
 import { ImageWrapper } from '@/components/ImageWrapper'
 import desert from '@/assets/desert.png'
@@ -11,18 +12,26 @@ export default function Home() {
     <Card>
       <h1 className="text-4xl font-bold mb-8">Home</h1>
       <div className="grid grid-cols-2 gap-4">
-        <ImageWrapper>
-          <Image src={desert} alt="Desert" className="object-cover" fill />
-        </ImageWrapper>
-        <ImageWrapper>
-          <Image src={jungle} alt="Jungle" className="object-cover" fill />
-        </ImageWrapper>
-        <ImageWrapper>
-          <Image src={ocean} alt="Ocean" className="object-cover" fill />
-        </ImageWrapper>
-        <ImageWrapper>
-          <Image src={rock} alt="Rock" className="object-cover" fill />
-        </ImageWrapper>
+        <Link href="/biomes/desert">
+          <ImageWrapper>
+            <Image src={desert} alt="Desert" className="object-cover" fill />
+          </ImageWrapper>
+        </Link>
+        <Link href="/biomes/jungle">
+          <ImageWrapper>
+            <Image src={jungle} alt="Jungle" className="object-cover" fill />
+          </ImageWrapper>
+        </Link>
+        <Link href="/biomes/ocean">
+          <ImageWrapper>
+            <Image src={ocean} alt="Ocean" className="object-cover" fill />
+          </ImageWrapper>
+        </Link>
+        <Link href="/biomes/rock">
+          <ImageWrapper>
+            <Image src={rock} alt="Rock" className="object-cover" fill />
+          </ImageWrapper>
+        </Link>
       </div>
     </Card>
   )
