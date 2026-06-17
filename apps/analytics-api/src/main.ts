@@ -9,6 +9,12 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AnalyticsHttpModule)
 
   app.useGlobalPipes(new ValidationPipe())
+  app.enableCors({
+    origin: ['http://localhost:3000', 'http://localhost:3001'], // Or an array for multiple origins
+    methods: 'POST,GET,OPTIONS',
+    allowedHeaders: 'Content-Type,Authorization',
+    // credentials: true, // if you need cookies/auth
+  })
 
   const options = new DocumentBuilder()
     .setTitle('Analytics API')

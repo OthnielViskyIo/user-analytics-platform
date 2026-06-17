@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+
 import { Card } from '@/components/Card'
 import { ImageWrapper } from '@/components/ImageWrapper'
 
@@ -8,6 +9,7 @@ export default function Home() {
     <div className="flex flex-col gap-8">
       <Card>
         <h1 className="text-4xl font-bold mb-8">Home</h1>
+
         <div className="grid grid-cols-2 gap-4">
           <Link href="/biomes/desert">
             <ImageWrapper>

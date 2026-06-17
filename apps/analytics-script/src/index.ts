@@ -8,20 +8,22 @@
       }
       _trackingId = config.trackingId
 
-      fetch('https://placeholder-endpoint.example.com/init', {
+      /*fetch('https://placeholder-endpoint.example.com/init', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ config: config }),
-      })
+      })*/
+      console.log('will init with: ', config)
     },
 
-    capture: function (name: string, config: Record<string, any>) {
+    capture: function (eventName: string, config: Record<string, any>) {
       const payload = Object.assign({}, config, {
-        name,
+        eventName,
+        userId: 'test-user-id-142',
         trackingId: _trackingId,
       })
 
-      fetch('https://placeholder-endpoint.example.com/capture', {
+      fetch('http://localhost:3000/capture', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

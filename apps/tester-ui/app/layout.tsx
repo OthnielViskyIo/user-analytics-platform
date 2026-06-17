@@ -4,6 +4,8 @@ import { type PropsWithChildren } from 'react'
 
 import { Header } from '@/components/Header'
 import { Container } from '@/components/Container'
+import { Analytics } from '@/components/Analytics'
+import { AnalyticsProvider } from '@/components/AnalyticsProvider'
 
 import './globals.css'
 
@@ -29,9 +31,12 @@ export default function RootLayout({ children }: PropsWithChildren) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased overflow-hidden`}
     >
       <body className="h-full flex flex-col overflow-hidden">
+        <Analytics />
         <Header />
         <main className="flex-1 overflow-y-auto">
-          <Container>{children}</Container>
+          <AnalyticsProvider>
+            <Container>{children}</Container>
+          </AnalyticsProvider>
         </main>
       </body>
     </html>

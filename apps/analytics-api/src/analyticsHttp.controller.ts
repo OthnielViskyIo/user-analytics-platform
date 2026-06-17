@@ -34,7 +34,6 @@ export class AnalyticsHttpController {
       createdAt: req.createdAt,
     })
 
-    // TODO: better return types with proper status codes
     return { correlationId: req.correlationId }
   }
 }
