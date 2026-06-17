@@ -31,7 +31,6 @@ export default function RootLayout({ children }: PropsWithChildren) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased overflow-hidden`}
     >
       <body className="h-full flex flex-col overflow-hidden">
-        <Analytics />
         <Header />
         <main className="flex-1 overflow-y-auto">
           <AnalyticsProvider>

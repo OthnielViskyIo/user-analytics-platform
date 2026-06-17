@@ -1,0 +1,27 @@
+{
+  "name": "@repo/user-analytics-sdk",
+  "private": false,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./dist/user-analytics-sdk.cjs",
+  "module": "./dist/user-analytics-sdk.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/user-analytics-sdk.js",
+      "require": "./dist/user-analytics-sdk.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc --emitDeclarationOnly && vite build",
+    "dev": "vite build --watch",
+    "lint": "eslint"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "^24.0.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.0.12"
+  }
+}
