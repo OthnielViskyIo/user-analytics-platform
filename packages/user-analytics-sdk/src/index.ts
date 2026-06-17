@@ -25,7 +25,7 @@ export const userAnalytics = {
     })
 
     if (_trackingId || payload.trackingId) {
-      await fetch('http://localhost:3000/capture', {
+      await fetch('http://localhost:1351/capture', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

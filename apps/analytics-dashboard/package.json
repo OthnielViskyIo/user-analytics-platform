@@ -1,15 +1,14 @@
 {
-  "name": "@repo/tester-ui",
+  "name": "analytics-dashboard",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start:dev": "next dev -p 1353",
+    "start:dev": "next dev -p 1355",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
-    "@repo/user-analytics-sdk": "workspace:*",
     "next": "16.2.9",
     "react": "19.2.4",
     "react-dom": "19.2.4"
