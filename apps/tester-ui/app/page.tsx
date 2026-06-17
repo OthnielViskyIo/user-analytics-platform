@@ -2,10 +2,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Card } from '@/components/Card'
 import { ImageWrapper } from '@/components/ImageWrapper'
-import desert from '@/assets/desert.png'
-import jungle from '@/assets/jungle.png'
-import ocean from '@/assets/ocean.png'
-import rock from '@/assets/rock.png'
 
 export default function Home() {
   return (
@@ -15,22 +11,22 @@ export default function Home() {
         <div className="grid grid-cols-2 gap-4">
           <Link href="/biomes/desert">
             <ImageWrapper>
-              <Image src={desert} alt="Desert" className="object-cover" fill />
+              <Image src="/desert.png" alt="Desert" className="object-cover" fill />
             </ImageWrapper>
           </Link>
           <Link href="/biomes/jungle">
             <ImageWrapper>
-              <Image src={jungle} alt="Jungle" className="object-cover" fill />
+              <Image src="/jungle.png" alt="Jungle" className="object-cover" fill />
             </ImageWrapper>
           </Link>
           <Link href="/biomes/ocean">
             <ImageWrapper>
-              <Image src={ocean} alt="Ocean" className="object-cover" fill />
+              <Image src="/ocean.png" alt="Ocean" className="object-cover" fill />
             </ImageWrapper>
           </Link>
           <Link href="/biomes/rock">
             <ImageWrapper>
-              <Image src={rock} alt="Rock" className="object-cover" fill />
+              <Image src="/rock.png" alt="Rock" className="object-cover" fill />
             </ImageWrapper>
           </Link>
         </div>

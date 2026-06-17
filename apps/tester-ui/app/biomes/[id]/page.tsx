@@ -1,26 +1,13 @@
-import Image, { StaticImageData } from 'next/image'
+import Image from 'next/image'
 import { Card } from '@/components/Card'
 import { ImageWrapper } from '@/components/ImageWrapper'
 import { notFound } from 'next/navigation'
 
-import blue1 from '@/assets/blue1.png'
-import blue2 from '@/assets/blue2.png'
-import blue3 from '@/assets/blue3.png'
-import green1 from '@/assets/green1.png'
-import green2 from '@/assets/green2.png'
-import green3 from '@/assets/green3.png'
-import red1 from '@/assets/red1.png'
-import red2 from '@/assets/red2.png'
-import red3 from '@/assets/red3.png'
-import yellow1 from '@/assets/yellow1.png'
-import yellow2 from '@/assets/yellow2.png'
-import yellow3 from '@/assets/yellow3.png'
-
-const biomes: Record<string, { title: string; images: StaticImageData[] }> = {
-  desert: { title: 'Desert', images: [yellow1, yellow2, yellow3] },
-  jungle: { title: 'Jungle', images: [green1, green2, green3] },
-  ocean: { title: 'Ocean', images: [blue1, blue2, blue3] },
-  rock: { title: 'Rock', images: [red1, red2, red3] },
+const biomes: Record<string, { title: string; images: string[] }> = {
+  desert: { title: 'Desert', images: ['/yellow1.png', '/yellow2.png', '/yellow3.png'] },
+  jungle: { title: 'Jungle', images: ['/green1.png', '/green2.png', '/green3.png'] },
+  ocean: { title: 'Ocean', images: ['/blue1.png', '/blue2.png', '/blue3.png'] },
+  rock: { title: 'Rock', images: ['/red1.png', '/red2.png', '/red3.png'] },
 }
 
 export async function generateStaticParams() {
@@ -29,11 +16,7 @@ export async function generateStaticParams() {
   }))
 }
 
-export default async function BiomePage({
-  params,
-}: {
-  params: Promise<{ id: string }>
-}) {
+export default async function BiomePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
   const biome = biomes[id]
 
@@ -55,7 +38,7 @@ export default async function BiomePage({
     <Card>
       <div className="flex flex-col items-center text-center">
         <h1 className="text-4xl font-bold mb-8">{biome.title}</h1>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 w-full">
           {biome.images.map((image, i) => (
             <ImageWrapper key={i}>
@@ -70,9 +53,12 @@ export default async function BiomePage({
         </div>
 
         <div className="space-y-4 text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-3xl">
-          {loremIpsum.trim().split('\n\n').map((paragraph, index) => (
-            <p key={index}>{paragraph.trim()}</p>
-          ))}
+          {loremIpsum
+            .trim()
+            .split('\n\n')
+            .map((paragraph, index) => (
+              <p key={index}>{paragraph.trim()}</p>
+            ))}
         </div>
       </div>
     </Card>

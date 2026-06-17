@@ -11,7 +11,7 @@ export function Header() {
   }
 
   return (
-    <header className="h-24 flex items-center border-b border-zinc-200 dark:border-zinc-800">
+    <header className="h-24 py-4 flex items-center border-b border-zinc-200 dark:border-zinc-800">
       <div className="container mx-auto px-4 max-w-7xl">
         <nav className="flex gap-2">
           <Link href="/" className={`w-24 flex justify-center ${getClassName('/')}`}>
