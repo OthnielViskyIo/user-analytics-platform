@@ -4,7 +4,6 @@ import { type PropsWithChildren } from 'react'
 
 import { Header } from '@/components/Header'
 import { Container } from '@/components/Container'
-import { Analytics } from '@/components/Analytics'
 import { AnalyticsProvider } from '@/components/AnalyticsProvider'
 
 import './globals.css'

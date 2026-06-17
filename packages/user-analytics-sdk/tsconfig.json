@@ -6,7 +6,9 @@
 
     "moduleResolution": "bundler",
 
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "noEmit": false
   },
-  "include": ["src", "vite.config.ts"]
+  "include": ["src"]
 }

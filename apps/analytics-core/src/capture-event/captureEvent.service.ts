@@ -14,7 +14,5 @@ export class CaptureEventService {
     await this.captureEventModel.insertOne({
       ...capturedEvent,
     })
-
-    console.log('DAS inserted into db: ', capturedEvent)
   }
 }

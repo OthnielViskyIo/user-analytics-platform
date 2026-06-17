@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common'
-import { MessagePattern, Payload } from '@nestjs/microservices'
+import { EventPattern, Payload } from '@nestjs/microservices'
 
 import { CaptureEvent } from './captureEvent.schema'
 import { CaptureEventService } from './captureEvent.service'
@@ -8,7 +8,7 @@ import { CaptureEventService } from './captureEvent.service'
 export class CaptureEventController {
   constructor(private readonly captureEventService: CaptureEventService) {}
 
-  @MessagePattern('analytics.capture') // Topic name
+  @EventPattern('analytics.capture')
   async handleCaptureEvent(@Payload() payload: CaptureEvent) {
     await this.captureEventService.persistCapturedEvent(payload)
   }

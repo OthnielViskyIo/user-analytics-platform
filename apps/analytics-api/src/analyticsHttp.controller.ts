@@ -12,27 +12,29 @@ export class AnalyticsHttpController {
   constructor(@Inject('ANALYTICS_SERVICE') private readonly kafkaClient: ClientKafka) {}
 
   async onModuleInit(): Promise<void> {
-    this.kafkaClient.subscribeToResponseOf('analytics.capture')
     await this.kafkaClient.connect()
   }
 
   @Post()
-  @ApiOperation({ summary: 'Emit capture event' })
+  @ApiOperation({ summary: 'Expose capture as POST endpoint' })
   @ApiBody({ type: CaptureBodyDTO })
   @ApiResponse({
     status: 201,
-    description: "Emits a capture event which let's the client track user activity.",
+    description: 'Correlation ID for tracking calls end-to-end.',
     type: CaptureResponseDTO,
   })
-  async postEvent(
-    @Body() event: CaptureBodyDTO,
+  async postCapture(
+    @Body() body: CaptureBodyDTO,
     @Req() req: Request & MetaInformationType,
   ): Promise<CaptureResponseDTO> {
-    this.kafkaClient.emit('analytics.capture', {
-      ...event,
+    const payload = JSON.stringify({
+      ...body,
       correlationId: req.correlationId,
       createdAt: req.createdAt,
     })
+
+    // fire-and-forget, meaning that I'm not expecting a direct response
+    this.kafkaClient.emit('analytics.capture', payload)
 
     return { correlationId: req.correlationId }
   }

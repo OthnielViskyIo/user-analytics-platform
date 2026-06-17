@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsString } from 'class-validator'
+import { IsString, IsNotEmpty } from 'class-validator'
 
 export class CaptureBodyDTO {
   @ApiProperty({
@@ -7,6 +7,7 @@ export class CaptureBodyDTO {
     example: 'click',
   })
   @IsString()
+  @IsNotEmpty()
   eventName: string
 
   // maybe I can get this in core based on tackingId?
@@ -15,18 +16,19 @@ export class CaptureBodyDTO {
     example: 'user-123',
   })
   @IsString()
-  userId: string
+  userId?: string
 
   @ApiProperty({
     description: 'The tracking ID',
     example: 'tracking-123',
   })
   @IsString()
+  @IsNotEmpty()
   trackingId: string
 
   @ApiProperty({
     description: 'Properties sent from client',
     example: { exampleKey: 'exampleValue' },
   })
-  properties: Record<string, any>
+  properties?: Record<string, any>
 }

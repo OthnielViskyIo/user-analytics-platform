@@ -6,12 +6,13 @@ import { userAnalytics } from '@repo/user-analytics-sdk'
 
 export const AnalyticsProvider = ({ children }: PropsWithChildren) => {
   const pathname = usePathname()
+  const { isInitialized } = userAnalytics.init({ trackingId: 'test-tracker-id' })
 
   useEffect(() => {
-    if (userAnalytics) {
+    if (userAnalytics && !isInitialized) {
       userAnalytics.init({ trackingId: 'test-tracker-id' })
     }
-  }, [])
+  }, [isInitialized])
 
   useEffect(() => {
     if (userAnalytics) {

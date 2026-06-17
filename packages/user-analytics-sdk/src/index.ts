@@ -7,25 +7,31 @@ export const userAnalytics = {
     }
     _trackingId = config.trackingId
 
+    // TODO: re-enable this when we have a concept of user and session
     /*fetch('https://placeholder-endpoint.example.com/init', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ config: config }),
     })*/
-    console.log('will init with: ', config)
+    console.log('init with: ', config)
+    return { isInitialized: true }
   },
 
-  capture: function (eventName: string, config?: Record<string, any>) {
+  capture: async function (eventName: string, config?: Record<string, any>) {
     const payload = Object.assign({}, config, {
       eventName,
       userId: 'test-user-id-142',
       trackingId: _trackingId,
     })
 
-    fetch('http://localhost:3000/capture', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    })
+    if (_trackingId || payload.trackingId) {
+      await fetch('http://localhost:3000/capture', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+    } else {
+      console.error('Tracking ID is missing!')
+    }
   },
 }
