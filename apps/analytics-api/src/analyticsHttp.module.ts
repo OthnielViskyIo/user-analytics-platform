@@ -1,7 +1,7 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
 import { ClientsModule, Transport } from '@nestjs/microservices'
-import { AnalyticsMetaMiddleware } from './analyticsMeta.middleware'
 
+import { AnalyticsMetaMiddleware } from './analyticsMeta.middleware'
 import { AnalyticsHttpController } from './analyticsHttp.controller'
 
 @Module({

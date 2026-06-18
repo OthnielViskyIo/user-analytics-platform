@@ -8,7 +8,7 @@ async function bootstrap() {
     transport: Transport.KAFKA,
     options: {
       client: {
-        clientId: 'analytics',
+        clientId: 'nestjs-consumer-client',
         brokers: ['localhost:9092'],
       },
       consumer: {

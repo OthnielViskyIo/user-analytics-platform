@@ -11,22 +11,22 @@ export default function Home() {
         <h1 className="text-4xl font-bold mb-8">Home</h1>
 
         <div className="grid grid-cols-2 gap-4">
-          <Link href="/biomes/desert">
+          <Link href="/biome/desert">
             <ImageWrapper>
               <Image src="/desert.png" alt="Desert" className="object-cover" fill />
             </ImageWrapper>
           </Link>
-          <Link href="/biomes/jungle">
+          <Link href="/biome/jungle">
             <ImageWrapper>
               <Image src="/jungle.png" alt="Jungle" className="object-cover" fill />
             </ImageWrapper>
           </Link>
-          <Link href="/biomes/ocean">
+          <Link href="/biome/ocean">
             <ImageWrapper>
               <Image src="/ocean.png" alt="Ocean" className="object-cover" fill />
             </ImageWrapper>
           </Link>
-          <Link href="/biomes/rock">
+          <Link href="/biome/rock">
             <ImageWrapper>
               <Image src="/rock.png" alt="Rock" className="object-cover" fill />
             </ImageWrapper>

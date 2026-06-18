@@ -17,9 +17,14 @@ export const userAnalytics = {
     return { isInitialized: true }
   },
 
-  capture: async function (eventName: string, config?: Record<string, any>) {
+  capture: async function (
+    eventName: string,
+    properties?: Record<string, any>,
+    config?: Record<string, any>,
+  ) {
     const payload = Object.assign({}, config, {
       eventName,
+      properties,
       userId: 'test-user-id-142',
       trackingId: _trackingId,
     })
