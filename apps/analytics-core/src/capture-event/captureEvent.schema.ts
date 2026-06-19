@@ -2,10 +2,10 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 
 @Schema()
 export class CaptureEvent {
-  @Prop({ required: true })
+  @Prop({ required: true, index: true })
   eventName: string
 
-  @Prop({ required: true })
+  @Prop({ required: true, index: true })
   userId: string
 
   @Prop({ required: true })
@@ -22,3 +22,5 @@ export class CaptureEvent {
 }
 
 export const CaptureEventSchema = SchemaFactory.createForClass(CaptureEvent)
+
+CaptureEventSchema.index({ 'properties.pathname': 1 })
