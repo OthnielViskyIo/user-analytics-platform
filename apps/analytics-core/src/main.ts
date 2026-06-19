@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core'
 import { MicroserviceOptions, Transport } from '@nestjs/microservices'
+import { ValidationPipe } from '@nestjs/common'
 
 import { AnalyticsModule } from './analytics.module'
 
@@ -17,6 +18,7 @@ async function bootstrap() {
     },
   })
 
+  app.useGlobalPipes(new ValidationPipe({ transform: true }))
   await app.listen()
 }
 

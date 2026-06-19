@@ -1,15 +1,16 @@
-import { Controller } from '@nestjs/common'
+import { Controller, UsePipes, ValidationPipe } from '@nestjs/common'
 import { EventPattern, Payload } from '@nestjs/microservices'
 
-import { CaptureEvent } from './captureEvent.schema'
 import { CaptureEventService } from './captureEvent.service'
+import { CaptureEventDto } from './captureEvent.dto'
 
 @Controller()
 export class CaptureEventController {
   constructor(private readonly captureEventService: CaptureEventService) {}
 
   @EventPattern('analytics.capture')
-  async handleCaptureEvent(@Payload() payload: CaptureEvent) {
+  @UsePipes(new ValidationPipe())
+  async handleCaptureEvent(@Payload() payload: CaptureEventDto) {
     await this.captureEventService.persistCapturedEvent(payload)
   }
 }

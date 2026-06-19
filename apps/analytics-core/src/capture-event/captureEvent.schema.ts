@@ -17,8 +17,8 @@ export class CaptureEvent {
   @Prop({ required: true })
   correlationId: string
 
-  @Prop({ required: true, type: Date })
-  createdAt: Date
+  @Prop({ required: true })
+  createdAt: string
 }
 
 export const CaptureEventSchema = SchemaFactory.createForClass(CaptureEvent)

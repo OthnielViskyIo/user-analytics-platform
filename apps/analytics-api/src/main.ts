@@ -24,7 +24,7 @@ async function bootstrap() {
     allowedHeaders: 'Content-Type,Authorization',
     // credentials: true, // TODO: when we'll have cookies/auth
   })
-  app.useGlobalPipes(new ValidationPipe())
+  app.useGlobalPipes(new ValidationPipe({ transform: true }))
   app.useGlobalFilters(new HttpExceptionFilter())
 
   const options = new DocumentBuilder()
