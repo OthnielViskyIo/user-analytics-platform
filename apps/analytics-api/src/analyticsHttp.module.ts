@@ -5,6 +5,7 @@ import { AnalyticsMetaMiddleware } from './analyticsMeta.middleware'
 import { AnalyticsHttpController } from './analyticsHttp.controller'
 import { AnalyticsService } from './analytics.service'
 import { KafkaModule } from './kafka/kafka.module'
+import { HealthModule } from './health/health.module'
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { KafkaModule } from './kafka/kafka.module'
       isGlobal: true,
     }),
     KafkaModule,
+    HealthModule,
   ],
   controllers: [AnalyticsHttpController],
   providers: [AnalyticsService],
