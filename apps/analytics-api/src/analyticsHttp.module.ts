@@ -3,6 +3,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices'
 
 import { AnalyticsMetaMiddleware } from './analyticsMeta.middleware'
 import { AnalyticsHttpController } from './analyticsHttp.controller'
+import { AnalyticsService } from './analytics.service'
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { AnalyticsHttpController } from './analyticsHttp.controller'
     ]),
   ],
   controllers: [AnalyticsHttpController],
+  providers: [AnalyticsService],
 })
 export class AnalyticsHttpModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
