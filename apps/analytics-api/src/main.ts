@@ -5,6 +5,7 @@ import { ValidationPipe } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 
 import { AnalyticsHttpModule } from './analyticsHttp.module'
+import { HttpExceptionFilter } from './filters/http-exception.filter'
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AnalyticsHttpModule)
@@ -24,6 +25,7 @@ async function bootstrap() {
     // credentials: true, // TODO: when we'll have cookies/auth
   })
   app.useGlobalPipes(new ValidationPipe())
+  app.useGlobalFilters(new HttpExceptionFilter())
 
   const options = new DocumentBuilder()
     .setTitle('Analytics API')
