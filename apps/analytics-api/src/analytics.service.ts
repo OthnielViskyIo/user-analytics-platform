@@ -1,19 +1,14 @@
-import { Inject, Injectable, OnModuleInit } from '@nestjs/common'
-import { ClientKafka } from '@nestjs/microservices'
+import { Injectable } from '@nestjs/common'
 import { firstValueFrom } from 'rxjs'
 
+import { KafkaService } from './kafka/kafka.service'
 import { CaptureBodyDTO } from './dto/captureBody.dto'
 import { CaptureResponseDTO } from './dto/captureResponse.dto'
 import { UserEngagementResponseDto } from './dto/userEngagementResponse.dto'
 
 @Injectable()
-export class AnalyticsService implements OnModuleInit {
-  constructor(@Inject('ANALYTICS_SERVICE') private readonly kafkaClient: ClientKafka) {}
-
-  async onModuleInit(): Promise<void> {
-    this.kafkaClient.subscribeToResponseOf('analytics.user-engagement')
-    await this.kafkaClient.connect()
-  }
+export class AnalyticsService {
+  constructor(private readonly kafkaService: KafkaService) {}
 
   async captureEvent(
     body: CaptureBodyDTO,
@@ -27,7 +22,7 @@ export class AnalyticsService implements OnModuleInit {
     })
 
     // fire-and-forget
-    this.kafkaClient.emit('analytics.capture', payload)
+    this.kafkaService.getClient().emit('analytics.capture', payload)
 
     return { correlationId }
   }
@@ -42,7 +37,7 @@ export class AnalyticsService implements OnModuleInit {
     })
 
     return await firstValueFrom<UserEngagementResponseDto>(
-      this.kafkaClient.send('analytics.user-engagement', payload),
+      this.kafkaService.getClient().send('analytics.user-engagement', payload),
     )
   }
 }
