@@ -2,14 +2,23 @@ import { NestFactory } from '@nestjs/core'
 import type { NestExpressApplication } from '@nestjs/platform-express'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { ValidationPipe } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 
 import { AnalyticsHttpModule } from './analyticsHttp.module'
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AnalyticsHttpModule)
 
+  const configService = app.get(ConfigService)
+  const corsAllowedOrigins = configService
+    .get<string>(
+      'CORS_ALLOWED_ORIGINS',
+      'http://localhost:1351,http://localhost:1353,http://localhost:1355',
+    )
+    .split(',')
+
   app.enableCors({
-    origin: ['http://localhost:1351', 'http://localhost:1353', 'http://localhost:1355'],
+    origin: corsAllowedOrigins,
     methods: 'GET,POST,OPTIONS,PUT,DELETE',
     allowedHeaders: 'Content-Type,Authorization',
     // credentials: true, // TODO: when we'll have cookies/auth
@@ -27,7 +36,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options)
   SwaggerModule.setup('api', app, document)
 
-  await app.listen(process.env.API_PORT ?? 1351)
+  const apiPort = configService.get<number>('API_PORT', 1351)
+  await app.listen(apiPort)
   console.log(`Application is running on ${await app.getUrl()}`)
 }
 

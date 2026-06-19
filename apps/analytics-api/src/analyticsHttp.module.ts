@@ -1,5 +1,6 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
 import { ClientsModule, Transport } from '@nestjs/microservices'
+import { ConfigModule, ConfigService } from '@nestjs/config'
 
 import { AnalyticsMetaMiddleware } from './analyticsMeta.middleware'
 import { AnalyticsHttpController } from './analyticsHttp.controller'
@@ -7,15 +8,21 @@ import { AnalyticsService } from './analytics.service'
 
 @Module({
   imports: [
-    ClientsModule.register([
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    ClientsModule.registerAsync([
       {
         name: 'ANALYTICS_SERVICE',
-        transport: Transport.KAFKA,
-        options: {
-          client: {
-            brokers: ['localhost:9092'],
+        useFactory: (configService: ConfigService) => ({
+          transport: Transport.KAFKA,
+          options: {
+            client: {
+              brokers: configService.get<string>('KAFKA_BROKERS', 'localhost:9092').split(','),
+            },
           },
-        },
+        }),
+        inject: [ConfigService],
       },
     ]),
   ],
