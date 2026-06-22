@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import * as d3 from 'd3'
 
-type Measure = 'day' | 'month' | 'year'
+type Measure = 'week' | 'month' | 'year'
 
 interface SessionData {
   period: string
@@ -11,7 +11,7 @@ interface SessionData {
 }
 
 export function SessionsOverTimeChart() {
-  const [measure, setMeasure] = useState<Measure>('day')
+  const [measure, setMeasure] = useState<Measure>('week')
   const [data, setData] = useState<SessionData[]>([])
   const [loading, setLoading] = useState(true)
   const svgRef = useRef<SVGSVGElement>(null)
@@ -47,10 +47,9 @@ export function SessionsOverTimeChart() {
     const margin = { top: 20, right: 20, bottom: 60, left: 40 }
 
     const x = d3
-      .scaleBand()
+      .scalePoint()
       .domain(data.map((d) => d.period))
       .range([margin.left, width - margin.right])
-      .padding(0.1)
 
     const y = d3
       .scaleLinear()
@@ -58,16 +57,29 @@ export function SessionsOverTimeChart() {
       .nice()
       .range([height - margin.bottom, margin.top])
 
+    const line = d3
+      .line<SessionData>()
+      .x((d) => x(d.period)!)
+      .y((d) => y(d.count))
+      .curve(d3.curveMonotoneX)
+
+    svg
+      .append('path')
+      .datum(data)
+      .attr('fill', 'none')
+      .attr('stroke', 'steelblue')
+      .attr('stroke-width', 2)
+      .attr('d', line)
+
     svg
       .append('g')
       .attr('fill', 'steelblue')
-      .selectAll('rect')
+      .selectAll('circle')
       .data(data)
-      .join('rect')
-      .attr('x', (d) => x(d.period)!)
-      .attr('y', (d) => y(d.count))
-      .attr('height', (d) => y(0) - y(d.count))
-      .attr('width', x.bandwidth())
+      .join('circle')
+      .attr('cx', (d) => x(d.period)!)
+      .attr('cy', (d) => y(d.count))
+      .attr('r', 3)
 
     svg
       .append('g')
@@ -84,12 +96,12 @@ export function SessionsOverTimeChart() {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
+      <div className="mb-4">
+        <h3 className="text-xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 mb-2">
           Unique Sessions
         </h3>
         <div className="flex gap-2">
-          {(['day', 'month', 'year'] as const).map((m) => (
+          {(['week', 'month', 'year'] as const).map((m) => (
             <button
               key={m}
               onClick={() => setMeasure(m)}

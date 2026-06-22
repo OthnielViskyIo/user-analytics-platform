@@ -46,7 +46,7 @@ export class AnalyticsService {
     )
   }
 
-  async getUniqueSessionsOverTime(measure: 'day' | 'month' | 'year') {
+  async getUniqueSessionsOverTime(measure: 'week' | 'month' | 'year') {
     return await firstValueFrom<UniqueSessionsResponseDto[]>(
       this.kafkaService.getClient().send('analytics.unique-sessions', { measure }),
     )

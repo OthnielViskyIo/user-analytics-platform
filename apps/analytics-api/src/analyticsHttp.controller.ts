@@ -53,13 +53,13 @@ export class AnalyticsHttpController {
 
   @Get('sessions-over-time')
   @ApiOperation({ summary: 'Unique sessions over time' })
-  @ApiQuery({ name: 'measure', enum: ['day', 'month', 'year'] })
+  @ApiQuery({ name: 'measure', enum: ['week', 'month', 'year'] })
   @ApiResponse({
     status: 200,
     description: 'Unique sessions over time',
     type: [UniqueSessionsResponseDto],
   })
-  async getUniqueSessionsOverTime(@Query('measure') measure: 'day' | 'month' | 'year' = 'day') {
+  async getUniqueSessionsOverTime(@Query('measure') measure: 'week' | 'month' | 'year' = 'week') {
     return await this.analyticsService.getUniqueSessionsOverTime(measure)
   }
 }

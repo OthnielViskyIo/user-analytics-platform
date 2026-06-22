@@ -15,7 +15,7 @@ export class UserEngagementController {
 
   @MessagePattern('analytics.unique-sessions')
   @UsePipes(new ValidationPipe())
-  getUniqueSessionsOverTime(data: { measure: 'day' | 'month' | 'year' }) {
+  getUniqueSessionsOverTime(data: { measure: 'week' | 'month' | 'year' }) {
     return this.userEngagementService.getUniqueSessionsOverTime(data.measure)
   }
 }

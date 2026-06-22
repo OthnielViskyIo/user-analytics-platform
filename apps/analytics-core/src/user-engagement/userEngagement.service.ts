@@ -74,16 +74,32 @@ export class UserEngagementService {
     }
   }
 
-  async getUniqueSessionsOverTime(measure: 'day' | 'month' | 'year') {
+  async getUniqueSessionsOverTime(measure: 'week' | 'month' | 'year') {
     const dateFormatMap = {
-      day: '%Y-%m-%d',
+      week: '%Y-%m-%d',
       month: '%Y-%m',
       year: '%Y',
     }
 
     const format = dateFormatMap[measure]
 
+    const now = new Date()
+    const startDate = new Date()
+
+    if (measure === 'week') {
+      startDate.setDate(now.getDate() - 7)
+    } else if (measure === 'month') {
+      startDate.setMonth(now.getMonth() - 1)
+    } else if (measure === 'year') {
+      startDate.setFullYear(now.getFullYear() - 1)
+    }
+
     return this.captureEventModel.aggregate<SessionOverTimeResult>([
+      {
+        $match: {
+          createdAt: { $gte: startDate.toISOString() },
+        },
+      },
       {
         $group: {
           _id: {
