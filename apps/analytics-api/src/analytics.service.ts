@@ -14,11 +14,13 @@ export class AnalyticsService {
     body: CaptureBodyDTO,
     correlationId: string,
     createdAt: string,
+    sessionId?: string,
   ): Promise<CaptureResponseDTO> {
     const payload = JSON.stringify({
       ...body,
       correlationId,
       createdAt,
+      sessionId,
     })
 
     // fire-and-forget
@@ -30,10 +32,12 @@ export class AnalyticsService {
   async getUserEngagement(
     correlationId: string,
     createdAt: string,
+    sessionId?: string,
   ): Promise<UserEngagementResponseDto> {
     const payload = JSON.stringify({
       correlationId,
       createdAt,
+      sessionId,
     })
 
     return await firstValueFrom<UserEngagementResponseDto>(

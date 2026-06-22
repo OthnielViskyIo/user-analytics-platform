@@ -3,6 +3,7 @@ import type { NestExpressApplication } from '@nestjs/platform-express'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { ValidationPipe } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
+import * as cookieParser from 'cookie-parser'
 
 import { AnalyticsHttpModule } from './analyticsHttp.module'
 import { HttpExceptionFilter } from './filters/http-exception.filter'
@@ -22,8 +23,9 @@ async function bootstrap() {
     origin: corsAllowedOrigins,
     methods: 'GET,POST,OPTIONS,PUT,DELETE',
     allowedHeaders: 'Content-Type,Authorization',
-    // credentials: true, // TODO: when we'll have cookies/auth
+    credentials: true,
   })
+  app.use(cookieParser())
   app.useGlobalPipes(new ValidationPipe({ transform: true }))
   app.useGlobalFilters(new HttpExceptionFilter())
 

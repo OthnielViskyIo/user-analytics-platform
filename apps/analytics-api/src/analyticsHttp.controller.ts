@@ -24,7 +24,13 @@ export class AnalyticsHttpController {
     @Body() body: CaptureBodyDTO,
     @Req() req: Request & MetaInformationType,
   ): Promise<CaptureResponseDTO> {
-    return await this.analyticsService.captureEvent(body, req.correlationId, req.createdAt)
+    const sessionId = req.cookies['sessionId']
+    return await this.analyticsService.captureEvent(
+      body,
+      req.correlationId,
+      req.createdAt,
+      sessionId,
+    )
   }
 
   @Get()
@@ -35,6 +41,11 @@ export class AnalyticsHttpController {
     type: UserEngagementResponseDto,
   })
   async getUserEngagement(@Req() req: Request & MetaInformationType) {
-    return await this.analyticsService.getUserEngagement(req.correlationId, req.createdAt)
+    const sessionId = req.cookies['sessionId']
+    return await this.analyticsService.getUserEngagement(
+      req.correlationId,
+      req.createdAt,
+      sessionId,
+    )
   }
 }
