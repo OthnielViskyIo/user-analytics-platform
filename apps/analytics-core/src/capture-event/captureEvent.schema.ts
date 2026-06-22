@@ -5,9 +5,6 @@ export class CaptureEvent {
   @Prop({ required: true, index: true })
   eventName: string
 
-  @Prop({ required: true, index: true })
-  userId: string
-
   @Prop({ required: true })
   trackingId: string
 
@@ -19,6 +16,9 @@ export class CaptureEvent {
 
   @Prop({ required: true })
   createdAt: string
+
+  @Prop({ required: false, index: true })
+  sessionId?: string
 }
 
 export const CaptureEventSchema = SchemaFactory.createForClass(CaptureEvent)

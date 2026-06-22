@@ -10,14 +10,6 @@ export class CaptureBodyDTO {
   @IsNotEmpty()
   eventName: string
 
-  // maybe I can get this in core based on tackingId?
-  @ApiProperty({
-    description: 'The ID of the user',
-    example: 'user-123',
-  })
-  @IsString()
-  userId?: string
-
   @ApiProperty({
     description: 'The tracking ID',
     example: 'tracking-123',

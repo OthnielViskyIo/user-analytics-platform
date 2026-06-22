@@ -1,5 +1,5 @@
-import { Body, Controller, Get, Post, Req } from '@nestjs/common'
-import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger'
+import { Body, Controller, Get, Post, Query, Req } from '@nestjs/common'
+import { ApiBody, ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger'
 import { Request } from 'express'
 
 import { MetaInformationType } from './analyticsMeta.middleware'
@@ -7,6 +7,7 @@ import { AnalyticsService } from './analytics.service'
 import { CaptureBodyDTO } from './dto/captureBody.dto'
 import { CaptureResponseDTO } from './dto/captureResponse.dto'
 import { UserEngagementResponseDto } from './dto/userEngagementResponse.dto'
+import { UniqueSessionsResponseDto } from './dto/uniqueSessionsResponse.dto'
 
 @Controller('capture')
 export class AnalyticsHttpController {
@@ -25,6 +26,7 @@ export class AnalyticsHttpController {
     @Req() req: Request & MetaInformationType,
   ): Promise<CaptureResponseDTO> {
     const sessionId = req.cookies['sessionId']
+
     return await this.analyticsService.captureEvent(
       body,
       req.correlationId,
@@ -47,5 +49,17 @@ export class AnalyticsHttpController {
       req.createdAt,
       sessionId,
     )
+  }
+
+  @Get('sessions-over-time')
+  @ApiOperation({ summary: 'Unique sessions over time' })
+  @ApiQuery({ name: 'measure', enum: ['day', 'month', 'year'] })
+  @ApiResponse({
+    status: 200,
+    description: 'Unique sessions over time',
+    type: [UniqueSessionsResponseDto],
+  })
+  async getUniqueSessionsOverTime(@Query('measure') measure: 'day' | 'month' | 'year' = 'day') {
+    return await this.analyticsService.getUniqueSessionsOverTime(measure)
   }
 }

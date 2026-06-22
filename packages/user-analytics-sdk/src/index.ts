@@ -7,13 +7,6 @@ export const userAnalytics = {
     }
     _trackingId = config.trackingId
 
-    // TODO: re-enable this when we have a concept of user and session
-    /*fetch('https://placeholder-endpoint.example.com/init', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ config: config }),
-    })*/
-    console.log('init with: ', config)
     return { isInitialized: true }
   },
 
@@ -25,7 +18,6 @@ export const userAnalytics = {
     const payload = Object.assign({}, config, {
       eventName,
       properties,
-      userId: 'test-user-id-142',
       trackingId: _trackingId,
     })
 

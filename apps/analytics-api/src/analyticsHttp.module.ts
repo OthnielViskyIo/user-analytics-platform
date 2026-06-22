@@ -3,10 +3,10 @@ import { ConfigModule } from '@nestjs/config'
 
 import { AnalyticsMetaMiddleware } from './analyticsMeta.middleware'
 import { AnalyticsHttpController } from './analyticsHttp.controller'
-import { SessionModule } from './session/session.module'
 import { AnalyticsService } from './analytics.service'
 import { KafkaModule } from './kafka/kafka.module'
 import { HealthModule } from './health/health.module'
+import { SessionModule } from './session/session.module'
 
 @Module({
   imports: [

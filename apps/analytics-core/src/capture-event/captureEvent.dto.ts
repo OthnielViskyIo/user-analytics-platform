@@ -7,10 +7,6 @@ export class CaptureEventDto {
 
   @IsString()
   @IsNotEmpty()
-  userId: string
-
-  @IsString()
-  @IsNotEmpty()
   trackingId: string
 
   @IsOptional()
@@ -23,4 +19,8 @@ export class CaptureEventDto {
 
   @IsDateString()
   createdAt: string
+
+  @IsString()
+  @IsOptional()
+  sessionId?: string
 }

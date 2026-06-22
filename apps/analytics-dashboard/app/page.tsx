@@ -1,5 +1,6 @@
 import { Card } from '@/components/Card'
 import { Table } from '@/components/Table'
+import { SessionsOverTimeChart } from '@/components/SessionsOverTimeChart'
 import { formatPageName, formatTime } from '@/utils/format'
 import { getData } from '@/utils/data'
 
@@ -38,9 +39,9 @@ export default async function Home() {
             ]}
           />
         </Card>
-        <Card title="Retention Rate">
-          <p>{lorem}</p>
-        </Card>
+        <div className="flex flex-col rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950 h-80">
+          <SessionsOverTimeChart />
+        </div>
         <Card title="Churn Rate">
           <p>{lorem}</p>
         </Card>

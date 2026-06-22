@@ -5,6 +5,7 @@ import { KafkaService } from './kafka/kafka.service'
 import { CaptureBodyDTO } from './dto/captureBody.dto'
 import { CaptureResponseDTO } from './dto/captureResponse.dto'
 import { UserEngagementResponseDto } from './dto/userEngagementResponse.dto'
+import { UniqueSessionsResponseDto } from './dto/uniqueSessionsResponse.dto'
 
 @Injectable()
 export class AnalyticsService {
@@ -42,6 +43,12 @@ export class AnalyticsService {
 
     return await firstValueFrom<UserEngagementResponseDto>(
       this.kafkaService.getClient().send('analytics.user-engagement', payload),
+    )
+  }
+
+  async getUniqueSessionsOverTime(measure: 'day' | 'month' | 'year') {
+    return await firstValueFrom<UniqueSessionsResponseDto[]>(
+      this.kafkaService.getClient().send('analytics.unique-sessions', { measure }),
     )
   }
 }
