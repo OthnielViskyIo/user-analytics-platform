@@ -2,7 +2,7 @@ export function Sidebar() {
   const items = ['Overview', 'Analytics', 'Reports', 'Settings']
 
   return (
-    <aside className="fixed bottom-0 left-0 top-16 w-64 overflow-y-auto border-r border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/50">
+    <aside className="fixed bottom-0 left-0 top-16 w-32 overflow-y-auto border-r border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900/50">
       <nav className="flex flex-col gap-2 p-4">
         {items.map((item) => (
           <a

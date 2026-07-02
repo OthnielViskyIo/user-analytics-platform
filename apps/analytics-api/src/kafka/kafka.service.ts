@@ -10,7 +10,8 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
   async onModuleInit(): Promise<void> {
     this.logger.log('Connecting to Kafka...')
     this.kafkaClient.subscribeToResponseOf('analytics.user-engagement')
-    this.kafkaClient.subscribeToResponseOf('analytics.unique-sessions')
+    this.kafkaClient.subscribeToResponseOf('analytics.unique-sessions-lttb')
+    this.kafkaClient.subscribeToResponseOf('analytics.unique-sessions-min-max-avg')
     try {
       await this.kafkaClient.connect()
       this.logger.log('Successfully connected to Kafka')

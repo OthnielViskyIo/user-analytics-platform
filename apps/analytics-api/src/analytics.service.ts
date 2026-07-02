@@ -51,4 +51,16 @@ export class AnalyticsService {
       this.kafkaService.getClient().send('analytics.unique-sessions', { measure }),
     )
   }
+
+  async getUniqueSessionsOverTimeLTTB(measure: 'week' | 'month' | 'year') {
+    return await firstValueFrom<UniqueSessionsResponseDto[]>(
+      this.kafkaService.getClient().send('analytics.unique-sessions-lttb', { measure }),
+    )
+  }
+
+  async getUniqueSessionsOverTimeMinMaxAvg(measure: 'week' | 'month' | 'year') {
+    return await firstValueFrom<any[]>(
+      this.kafkaService.getClient().send('analytics.unique-sessions-min-max-avg', { measure }),
+    )
+  }
 }

@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core'
 import { MicroserviceOptions, Transport } from '@nestjs/microservices'
 import { ValidationPipe } from '@nestjs/common'
+import { Partitioners } from 'kafkajs'
 
 import { AnalyticsModule } from './analytics.module'
 
@@ -14,6 +15,9 @@ async function bootstrap() {
       },
       consumer: {
         groupId: 'analytics-consumer',
+      },
+      producer: {
+        createPartitioner: Partitioners.LegacyPartitioner,
       },
     },
   })

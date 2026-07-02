@@ -62,4 +62,31 @@ export class AnalyticsHttpController {
   async getUniqueSessionsOverTime(@Query('measure') measure: 'week' | 'month' | 'year' = 'week') {
     return await this.analyticsService.getUniqueSessionsOverTime(measure)
   }
+
+  @Get('sessions-over-time-lttb')
+  @ApiOperation({ summary: 'Unique sessions over time using LTTB' })
+  @ApiQuery({ name: 'measure', enum: ['week', 'month', 'year'] })
+  @ApiResponse({
+    status: 200,
+    description: 'Unique sessions over time (LTTB)',
+    type: [UniqueSessionsResponseDto],
+  })
+  async getUniqueSessionsOverTimeLTTB(
+    @Query('measure') measure: 'week' | 'month' | 'year' = 'week',
+  ) {
+    return await this.analyticsService.getUniqueSessionsOverTimeLTTB(measure)
+  }
+
+  @Get('sessions-over-time-min-max-avg')
+  @ApiOperation({ summary: 'Unique sessions over time using Min-Max-Avg bucketing' })
+  @ApiQuery({ name: 'measure', enum: ['week', 'month', 'year'] })
+  @ApiResponse({
+    status: 200,
+    description: 'Unique sessions over time (Min-Max-Avg)',
+  })
+  async getUniqueSessionsOverTimeMinMaxAvg(
+    @Query('measure') measure: 'week' | 'month' | 'year' = 'week',
+  ) {
+    return await this.analyticsService.getUniqueSessionsOverTimeMinMaxAvg(measure)
+  }
 }

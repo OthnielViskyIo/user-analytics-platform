@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 
 import { Header } from '@/components/Header'
 import { Sidebar } from '@/components/Sidebar'
+import { Providers } from '@/providers/Providers'
 
 import './globals.css'
 
@@ -29,9 +30,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full bg-white dark:bg-zinc-950">
-        <Header />
-        <Sidebar />
-        <main className="pl-64 pt-0">{children}</main>
+        <Providers>
+          <Header />
+          <Sidebar />
+          <main className="pl-32 pt-0">{children}</main>
+        </Providers>
       </body>
     </html>
   )
